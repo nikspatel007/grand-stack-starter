@@ -1,43 +1,68 @@
-type User {
-  id: ID!
-  name: String
-  friends: [User] @relation(name: "FRIENDS", direction: "BOTH")
-  reviews: [Review] @relation(name: "WROTE", direction: "OUT")
-  avgStars: Float
-    @cypher(
-      statement: "MATCH (this)-[:WROTE]->(r:Review) RETURN toFloat(avg(r.stars))"
-    )
-  numReviews: Int
-    @cypher(statement: "MATCH (this)-[:WROTE]->(r:Review) RETURN COUNT(r)")
+type Building {
+    id: UUID!
+    name: String!
+    description: String
+    towers(first: Int = 10, offset: Int = 0): [Tower] @relation(name: "LOCATED_IN", direction: "IN")
+    floors(first: Int = 10, offset: Int = 0): [Floor] @relation(name: "LOCATED_IN", direction: "IN")
+    company(first: Int = 10, offset: Int = 0): [Company] @relation(name:"LOCATED_IN", direction: "IN")
 }
 
-type Business {
-  id: ID!
-  name: String
-  address: String
-  city: String
-  state: String
-  reviews: [Review] @relation(name: "REVIEWS", direction: "IN")
-  categories: [Category] @relation(name: "IN_CATEGORY", direction: "OUT")
+type Tower {
+    id: UUID!
+    name: String!
+    description: String
+    building: Building! @relation(name: "LOCATED_IN", direction: "OUT")
+    floors(first: Int = 10, offset: Int = 0): [Floor] @relation(name: "LOCATED_IN", direction: "IN")
 }
 
-type Review {
-  id: ID!
-  stars: Int
-  text: String
-  date: Date
-  business: Business @relation(name: "REVIEWS", direction: "OUT")
-  user: User @relation(name: "WROTE", direction: "IN")
+type Floor {
+    id: UUID!
+    name: String!
+    description: String
+    elevation: String
+    building: Building @relation(name: "LOCATED_IN", direction: "OUT")
+    tower: Tower @relation(name: "LOCATED_IN", direction: "OUT")
+    zone: Zone @relation(name: "IS_PART_OF", direction: "OUT")
+    spaces(first: Int = 10, offset: Int = 0): [Space] @relation(name:"LOCATED_IN", direction: "IN")
 }
 
-type Category {
-  name: ID!
-  businesses: [Business] @relation(name: "IN_CATEGORY", direction: "IN")
+type Zone {
+    id: UUID!
+    name: String!
+    description: String
+    type: String
+    floor: Floor @relation(name: "IS_PART_OF", direction: "IN")
+    spaces(first: Int = 10, offset: Int = 0): [Space] @relation(name:"IS_PART_OF", direction: "IN")
 }
 
-type Query {
-  usersBySubstring(substring: String): [User]
-    @cypher(
-      statement: "MATCH (u:User) WHERE u.name CONTAINS $substring RETURN u"
-    )
+type Space {
+    id: UUID!
+    name: String!
+    description: String
+    floor: Floor @relation(name: "LOCATED_IN", direction: "OUT")
+    zones(first: Int = 10, offset: Int = 0): [Zone] @relation(name:"IS_PART_OF", direction: "OUT")
+    spaceZone: SpaceZone @relation(name:"IS_PART_OF", direction: "OUT")
+}
+
+enum SpaceZoneType {
+    BuildingArea
+    TenantSuite
+}
+
+type SpaceZone {
+    id: UUID!
+    name: String!
+    code: String
+    description: String
+    type: SpaceZoneType!
+    company: Company @relation(name: "OCCUPIED_BY", direction: "OUT")
+    spaces(first: Int = 10, offset: Int = 0): [Space] @relation(name:"IS_PART_OF", direction: "IN")
+}
+
+type Company {
+    id: UUID!
+    name: String!
+    description: String
+    building: Building! @relation(name:"LOCATED_IN", direction: "OUT")
+    spaceZones(first: Int = 10, offset: Int = 0):[SpaceZone] @relation(name: "OCCUPIED_BY", direction: "IN")
 }
