@@ -86,7 +86,6 @@ export default /* GraphQL */ `
         id
       }
     }
-
     s1: CreateSpace(id: "ca7fd90d-beb6-4d28-8fbd-629b0703c481", name:"cohesionReception", description: "cohesionIB HQ reception") {
       id
       name
@@ -158,35 +157,35 @@ export default /* GraphQL */ `
         id
       }
     }
-
-    sz1: CreateSpaceZone(id: "d6a5655a-2ff2-4e22-968e-abfe8a73c25e", name:"cohesionReception", code:"cib-r", description:"Ground floor reception", type:"TenantSuite") {
+    sz1: CreateSpaceZone(id: "d6a5655a-2ff2-4e22-968e-abfe8a73c25e", name:"cohesionReception", code:"cib-r", description:"Ground floor reception", type:TenantSuite) {
       id
       name
       code
-    })
+    }
 
-    sz2: CreateSpaceZone(id: "36c00e4b-c659-4026-b866-829a16047930", name:"cohesionOffice", code:"cib-o", description:"cohesion Offices", type:"TenantSuite") {
+    sz2: CreateSpaceZone(id: "36c00e4b-c659-4026-b866-829a16047930", name:"cohesionOffice", code:"cib-o", description:"cohesion Offices", type:TenantSuite) {
       id
       name
       code
-    })
+    }
 
-    sz3: CreateSpaceZone(id: "5696eecd-a4ee-4714-b16a-5da897fad739", name:"utility", code:"jbc-u", description:"Utility Areas", type:"BuildingArea") {
+    sz3: CreateSpaceZone(id: "5696eecd-a4ee-4714-b16a-5da897fad739", name:"utility", code:"jbc-u", description:"Utility Areas", type:BuildingArea) {
       id
       name
       code
-    })
+    }
 
     s1sz1: AddSpaceSpaceZone(from: {id: "ca7fd90d-beb6-4d28-8fbd-629b0703c481"}, to: {id: "d6a5655a-2ff2-4e22-968e-abfe8a73c25e"}) {
       from {
         id
       }
+    }
 
     s2sz2: AddSpaceSpaceZone(from: {id: "7c50d541-734b-40b6-9e46-5ab9cf2b6fa6"}, to: {id: "36c00e4b-c659-4026-b866-829a16047930"}) {
       from {
         id
       }
-
+    }
     s3sz2: AddSpaceSpaceZone(from: {id: "7a6f6019-9b85-4afc-90e9-8fd321ad0e86"}, to: {id: "36c00e4b-c659-4026-b866-829a16047930"}) {
       from {
         id
@@ -196,22 +195,22 @@ export default /* GraphQL */ `
       from {
         id
       }
-
+    }
     s5sz2: AddSpaceSpaceZone(from: {id: "4e9abf22-2be1-40f0-8b90-2b1bd65d231e"}, to: {id: "36c00e4b-c659-4026-b866-829a16047930"}) {
       from {
         id
       }
-
+    }
     s6sz3: AddSpaceSpaceZone(from: {id: "d3cfaebf-2baf-4c71-9f3a-d5f9cbc495bd"}, to: {id: "5696eecd-a4ee-4714-b16a-5da897fad739"}) {
       from {
         id
       }
-
+    }
     s7sz3: AddSpaceSpaceZone(from: {id: "989bf9eb-ba17-4101-988f-a1848f26f5bb"}, to: {id: "5696eecd-a4ee-4714-b16a-5da897fad739"}) {
       from {
         id
       }
-    
+    }
     c1: CreateCompany(id:"fe4d1042-d203-4668-aaf3-d951ec5200cd", name:"cohesionIB", description:"cohesionIB Inc.") {
       id
       name
