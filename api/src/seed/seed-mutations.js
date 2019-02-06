@@ -211,6 +211,7 @@ export default /* GraphQL */ `
         id
       }
     }
+
     c1: CreateCompany(id:"fe4d1042-d203-4668-aaf3-d951ec5200cd", name:"cohesionIB", description:"cohesionIB Inc.") {
       id
       name
@@ -218,6 +219,24 @@ export default /* GraphQL */ `
     c2: CreateCompany(id:"f0958ee1-6786-4159-883f-544caf783ff1", name:"JBC", description:"John Buck Company Inc.") {
       id
       name
+    }
+
+    sz1c1: AddSpaceZoneCompany(from: {id: "d6a5655a-2ff2-4e22-968e-abfe8a73c25e"}, to: { id:"fe4d1042-d203-4668-aaf3-d951ec5200cd"}) {
+      from {
+        id
+      }
+    }
+
+    sz2c1: AddSpaceZoneCompany(from: {id: "36c00e4b-c659-4026-b866-829a16047930"}, to: { id:"fe4d1042-d203-4668-aaf3-d951ec5200cd"}) {
+      from {
+        id
+      }
+    }
+
+    sz2c2: AddSpaceZoneCompany(from: {id: "5696eecd-a4ee-4714-b16a-5da897fad739"}, to: { id:"f0958ee1-6786-4159-883f-544caf783ff1"}) {
+      from {
+        id
+      }
     }
 
     c1b1: AddCompanyBuilding(from: {id:"fe4d1042-d203-4668-aaf3-d951ec5200cd"}, to:{id: "befa11e3-95a2-4a77-94f9-eaabb6c14b78"}) {
