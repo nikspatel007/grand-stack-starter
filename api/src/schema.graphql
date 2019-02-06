@@ -1,5 +1,5 @@
 type Building {
-    id: UUID!
+    id: ID!
     name: String!
     description: String
     towers(first: Int = 10, offset: Int = 0): [Tower] @relation(name: "LOCATED_IN", direction: "IN")
@@ -8,7 +8,7 @@ type Building {
 }
 
 type Tower {
-    id: UUID!
+    id: ID!
     name: String!
     description: String
     building: Building! @relation(name: "LOCATED_IN", direction: "OUT")
@@ -16,8 +16,9 @@ type Tower {
 }
 
 type Floor {
-    id: UUID!
+    id: ID!
     name: String!
+    code: String
     description: String
     elevation: String
     building: Building @relation(name: "LOCATED_IN", direction: "OUT")
@@ -27,7 +28,7 @@ type Floor {
 }
 
 type Zone {
-    id: UUID!
+    id: ID!
     name: String!
     description: String
     type: String
@@ -36,7 +37,7 @@ type Zone {
 }
 
 type Space {
-    id: UUID!
+    id: ID!
     name: String!
     description: String
     floor: Floor @relation(name: "LOCATED_IN", direction: "OUT")
@@ -50,7 +51,7 @@ enum SpaceZoneType {
 }
 
 type SpaceZone {
-    id: UUID!
+    id: ID!
     name: String!
     code: String
     description: String
@@ -60,7 +61,7 @@ type SpaceZone {
 }
 
 type Company {
-    id: UUID!
+    id: ID!
     name: String!
     description: String
     building: Building! @relation(name:"LOCATED_IN", direction: "OUT")
